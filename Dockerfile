@@ -1,10 +1,19 @@
-FROM node:lts-slim
+FROM node:lts
 
-RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
+#ffmpg dzb
+RUN apt-get update && apt-get install -y \
+    python3 \
+    make \
+    g++ \
+    gcc \
+    ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
 COPY package*.json ./
+
+# تثبيت المكتبات (دابا غادي يقد يجمع @discordjs/opus بلا مشاكل)
 RUN npm install --production
 
 COPY . .
